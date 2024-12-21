@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* [Previous CSS remains the same until .sparkle] */
+        body {
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+        }
+        
+        .input-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+        
+        .input-group {
+            margin: 5px;
+            flex: 1;
+        }
+        
+        input {
+            width: 75%;
+            padding: 10px;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        input:focus {
+            border-color: #ff1493;
+            box-shadow: 0 0 10px rgba(255,20,147,0.3);
+        }
+        
+        button {
+            background: #ff1493;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+            background: #ff69b4;
+        }
+        
+        .result {
+            margin-top: 30px;
+            font-size: 24px;
+            color: #ff1493;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .heart-container {
+            position: relative;
+            height: 150px;
+            margin: 20px 0;
+        }
+        
+        .heart {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 100px;
+            color: #ff1493;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* New Loading Slider Styles */
+        .loading-container {
+            width: 80%;
+            margin: 20px auto;
+            display: none;
+        }
+
+        .loading-bar {
+            width: 100%;
+            height: 20px;
+            background: #ffd1dc;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .loading-progress {
+            width: 0%;
+            height: 100%;
+            background: #ff1493;
+            position: absolute;
+            transition: width 0.5s ease;
+        }
+
+        .loading-text {
+            margin-top: 10px;
+            color: #ff1493;
+            font-size: 18px;
+        }
+        
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .sparkles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .sparkle {
+            position: absolute;
+            background: #ff69b4;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            opacity: 0;
+        }
+    </style>
+    <title>Milky lop riva</title>
+</head>
+<body>
+    <div class="container">
+        <h1>game gajelas njir</h1>
+        <p>ini game ngitung presentase cinta kwoakawowa</p>
+        <div class="input-container">
+            <div class="input-group">
+                <input type="text" id="name1" placeholder="nama luwh" maxlength="10" required>
+            </div>
+            <div class="input-group">
+                <input type="text" id="name2" placeholder="nama pcar luwhk" maxlength="10" required>
+            </div>
+        </div>
+        <p>kasih namanya yang pertama ajah yh</p>
+
+        <button onclick="calculateLove()">hitung</button>
+
+        <!-- Loading Bar -->
+        <div class="loading-container" id="loadingContainer">
+            <div class="loading-bar">
+                <div class="loading-progress" id="loadingProgress"></div>
+            </div>
+            <div class="loading-text" id="loadingText">Mengukur cinta... 0%</div>
+        </div>
+
+        <div class="heart-container">
+            <div class="heart">❤️</div>
+            <div class="sparkles" id="sparkles"></div>
+        </div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateLove() {
+            const name1 = document.getElementById('name1').value.toLowerCase();
+            const name2 = document.getElementById('name2').value.toLowerCase();
+            
+            if (!name1 || !name2) {
+                alert('mana namanya njink');
+                return;
+            }
+
+            // Show loading container and hide previous result
+            document.getElementById('loadingContainer').style.display = 'block';
+            document.getElementById('result').style.opacity = '0';
+            
+            let loveScore;
+            let message;
+            let finalScore;
+
+            if (name1 === 'arya' || name2 === 'arya') {
+                finalScore = 0;
+                message = `gausah pacaran dulu dek ${name1}, fokus sekolah 📚`;
+            }
+            else if (
+                ((name1 === 'milky' || name1 === 'milki') && (name2 === 'ripa' || name2 === 'riva')) || 
+                ((name2 === 'milky' || name2 === 'milki') && (name1 === 'ripa' || name1 === 'riva'))
+            ) {
+                finalScore = 10000;
+                message = `wajib nikah ${name1} & ${name2} 💑💍 ${finalScore}%!!!`;
+            } else {
+                finalScore = Math.floor(Math.random() * 101);
+                
+                if (finalScore >= 50) {
+                    message = `cocok bget njir ${name1} sama ${name2} ${finalScore}%! 💑`;
+                } else {
+                    message = `kurang cocok njir ${name1} sama ${name2} cuma ${finalScore}%! 💔`;
+                }
+            }
+
+            // Animate loading bar
+            let progress = 0;
+            const loadingInterval = setInterval(() => {
+                progress += 2;
+                document.getElementById('loadingProgress').style.width = `${progress}%`;
+                document.getElementById('loadingText').textContent = `Mengukur cinta... ${progress}%`;
+
+                if (progress >= 100) {
+                    clearInterval(loadingInterval);
+                    setTimeout(() => {
+                        document.getElementById('loadingContainer').style.display = 'none';
+                        showResult(message);
+                    }, 500);
+                }
+            }, 50);
+        }
+
+        function showResult(message) {
+            const resultElement = document.getElementById('result');
+            resultElement.style.opacity = '1';
+            
+            let messageIndex = 0;
+            let charIndex = 0;
+            resultElement.textContent = '';
+            
+            function typeWriter() {
+                if (charIndex < message.length) {
+                    resultElement.textContent += message.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeWriter, 50);
+                } else {
+                    createSparkles();
+                }
+            }
+            
+            typeWriter();
+        }
+        
+        function createSparkles() {
+            const sparklesContainer = document.getElementById('sparkles');
+            sparklesContainer.innerHTML = '';
+            
+            for (let i = 0; i < 20; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                
+                sparkle.style.left = `${left}%`;
+                sparkle.style.top = `${top}%`;
+                
+                sparkle.style.animation = `
+                    float ${2 + Math.random() * 2}s ease-in-out infinite,
+                    pulse ${1 + Math.random()}s ease-in-out infinite
+                `;
+                
+                sparkle.style.opacity = '0.7';
+                
+                sparklesContainer.appendChild(sparkle);
+            }
+        }
+    </script>
+</body>
+</html>
